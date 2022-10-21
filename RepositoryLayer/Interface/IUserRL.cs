@@ -11,6 +11,9 @@ namespace RepositoryLayer.Interface
         //Data taken from UserEntity class
         public UserEntity Registration(UserRegistrationModel userRegistrationModel);
 
-       
+        //Added For Login 
+        //Here UserLoginModel class is taken to get the email and Password Property
+        public string Login(UserLoginModel userLoginModel);
+  
     }
 }

@@ -42,5 +42,31 @@ namespace FundooApp.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("Login")]
+
+        public IActionResult LoginUser(UserLoginModel userLoginModel)
+        {
+            try
+            {
+                var resultLog = iuserBL.Login(userLoginModel);
+
+                if (resultLog != null)
+                {
+                    return Ok(new { success = true, message = "Login Successful", data = resultLog });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Login UnSuccessful" });
+                }
+
+            }
+            catch(System.Exception)
+            {
+                throw;
+            }
+        }
+
+       
     }
 }

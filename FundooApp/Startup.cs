@@ -37,8 +37,9 @@ namespace FundooApp
         {
             services.AddDbContext<FundooContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:FundooDB"]));
             services.AddControllers();
-           
-            
+            services.AddTransient<IUserBL, UserBL>();
+            services.AddTransient<IUserRL, UserRL>();
+    
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,7 +61,7 @@ namespace FundooApp
             {
                 endpoints.MapControllers();
             });
-          
+        
         }
     }
 }

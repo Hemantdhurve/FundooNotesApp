@@ -11,6 +11,7 @@ namespace BusinessLayer.Interface
         //UserEntity class used to get the new data 
         public UserEntity Registration(UserRegistrationModel userRegistrationModel);
 
-       
+        //Added for Login
+        public string Login(UserLoginModel userLoginModel);
     }
 }
