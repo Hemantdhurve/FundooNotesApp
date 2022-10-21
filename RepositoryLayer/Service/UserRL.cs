@@ -16,12 +16,12 @@ namespace RepositoryLayer.Service
     public class UserRL : IUserRL
     {
         private readonly FundooContext fundooContext;
-        
+        private readonly IConfiguration iconfiguration;
        
-        public UserRL(FundooContext fundooContext)
+        public UserRL(FundooContext fundooContext, IConfiguration iconfiguration)
         {
             this.fundooContext = fundooContext;
-            
+            this.iconfiguration=iconfiguration;
         }
 
         public static UserEntity userEntity = new UserEntity();
@@ -85,6 +85,5 @@ namespace RepositoryLayer.Service
         }
 
        
-
     }
 }
