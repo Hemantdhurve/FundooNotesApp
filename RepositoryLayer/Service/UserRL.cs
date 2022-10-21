@@ -16,12 +16,12 @@ namespace RepositoryLayer.Service
     public class UserRL : IUserRL
     {
         private readonly FundooContext fundooContext;
-        private readonly IConfiguration iconfiguration;
+        
        
-        public UserRL(FundooContext fundooContext, IConfiguration iconfiguration)
+        public UserRL(FundooContext fundooContext)
         {
             this.fundooContext = fundooContext;
-            this.iconfiguration=iconfiguration;
+            
         }
 
         public static UserEntity userEntity = new UserEntity();
@@ -84,26 +84,7 @@ namespace RepositoryLayer.Service
             }
         }
 
-        public string GenerateSecurityToken(string email,long UserId)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(this.iconfiguration[("JWT:Key")]);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim(ClaimTypes.Email, email),
-                    new Claim("UserId",UserId.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddMinutes(30),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-
-            return tokenHandler.WriteToken(token);
-
-        }
+       
 
     }
 }
