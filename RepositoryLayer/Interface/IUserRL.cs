@@ -14,6 +14,8 @@ namespace RepositoryLayer.Interface
         //Added For Login 
         //Here UserLoginModel class is taken to get the email and Password Property
         public string Login(UserLoginModel userLoginModel);
-  
+        public string ForgetPassword(string email);
+
+
     }
 }

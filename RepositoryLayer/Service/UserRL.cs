@@ -105,5 +105,28 @@ namespace RepositoryLayer.Service
 
         }
 
+        public string ForgetPassword(string email)
+        {
+            try
+            {
+                var emailcheck = fundooContext.Usertable.FirstOrDefault(x => x.Email == email);
+                if (emailcheck != null)
+                {
+                    var token = GenerateSecurityToken(emailcheck.Email,emailcheck.UserId);
+                    MSMQ mSMQ = new MSMQ();
+                    mSMQ.sendData2Queue(token);
+                    return token;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch(Exception e)
+            {
+                throw;
+            }
+        }
+
     }
 }
