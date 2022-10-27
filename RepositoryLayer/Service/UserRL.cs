@@ -113,13 +113,35 @@ namespace RepositoryLayer.Service
                 if (emailcheck != null)
                 {
                     var token = GenerateSecurityToken(emailcheck.Email,emailcheck.UserId);
-                    MSMQ mSMQ = new MSMQ();
-                    mSMQ.sendData2Queue(token);
+                    MSMQ msmq = new MSMQ();
+                    msmq.sendData2Queue(token);
                     return token;
                 }
                 else
                 {
                     return null;
+                }
+            }
+            catch(Exception e)
+            {
+                throw;
+            }
+        }
+
+        public bool ResetPassword(string email,string newPassword,string confirmPassword)
+        {
+            try
+            {
+                if (newPassword.Equals(confirmPassword))
+                {
+                    var user = fundooContext.Usertable.FirstOrDefault(x => x.Email == email);
+                    user.Password = newPassword;
+                    fundooContext.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
                 }
             }
             catch(Exception e)

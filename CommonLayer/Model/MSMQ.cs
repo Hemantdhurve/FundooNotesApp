@@ -34,14 +34,14 @@ namespace CommonLayer.Model
                 string token = msg.Body.ToString();
                 string subject = "Fundoo Notes App Reset Link";
                 string body = token;
-                var SMTP = new SmtpClient("smtp.gmail.com")
+                var smtp = new SmtpClient("smtp.gmail.com")
                 {
                     Port = 587,
                     Credentials = new NetworkCredential("hemsdemo10@gmail.com", "abgkmpmdeaspajbb"),
                     EnableSsl = true
 
                 };
-                SMTP.Send("hemsdemo10@gmail.com", "hemsdemo10@gmail.com", subject, body);
+                smtp.Send("hemsdemo10@gmail.com", "hemsdemo10@gmail.com", subject, body);
                 // Process the logic be sending the message
                 //Restart the asynchronous receive operation.
                 MessageQ.BeginReceive();

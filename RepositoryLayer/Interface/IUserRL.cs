@@ -15,7 +15,7 @@ namespace RepositoryLayer.Interface
         //Here UserLoginModel class is taken to get the email and Password Property
         public string Login(UserLoginModel userLoginModel);
         public string ForgetPassword(string email);
-
+        public bool ResetPassword(string email, string newPassword, string confirmPassword);
 
     }
 }
