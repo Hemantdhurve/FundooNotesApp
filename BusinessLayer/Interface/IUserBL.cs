@@ -13,9 +13,10 @@ namespace BusinessLayer.Interface
 
         //Added for Login
         public string Login(UserLoginModel userLoginModel);
+
         public string ForgetPassword(string email);
 
-        public bool ResetPassword(string email, string newPassword, string confirmPassword);
+        public string ResetPassword(string email, string newPassword, string confirmPassword);
 
     }
 }

@@ -107,7 +107,7 @@ namespace FundooApp.Controllers
 
                 if (resultLog != null)
                 {
-                    return Ok(new { success = true, message = "Password Reset Successful",data=resultLog });
+                    return Ok(new { success = true, message = "Password Reset Successful"});
                 }
                 else
                 {
