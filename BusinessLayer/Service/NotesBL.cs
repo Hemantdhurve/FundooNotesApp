@@ -1,0 +1,32 @@
+﻿using BusinessLayer.Interface;
+using CommonLayer.Model;
+using RepositoryLayer.Entity;
+using RepositoryLayer.Interface;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace BusinessLayer.Service
+{
+    public class NotesBL:INotesBL
+    {
+        private readonly INotesRL inotesRL;
+        public NotesBL(INotesRL inotesRL)
+        {
+            this.inotesRL = inotesRL;     
+        }
+
+        public NotesEntity CreateNotes(NotesModel notesModel, long userId)
+        {
+            
+            try
+            {
+                return inotesRL.CreateNotes(notesModel,userId);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+    }
+}
