@@ -13,6 +13,8 @@ namespace FundooApp.Controllers
     public class NotesController : ControllerBase
     {
         private readonly INotesBL inotesBL;
+        private readonly long userId;
+
         public NotesController(INotesBL inotesBL)
         {
             this.inotesBL = inotesBL;
@@ -45,6 +47,31 @@ namespace FundooApp.Controllers
                 throw;
             }
         }
+        [Authorize]
+        [HttpGet]
+        [Route("Retrieve")]
 
+        public IActionResult RetrieveNotes()
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = inotesBL.RetrieveNotes(userId);
+                if (result != null)
+                {
+
+                    return Ok(new { success = true, message = "Retrieve data Successful ", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Retrieve data UnSuccessful" });
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

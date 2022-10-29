@@ -4,6 +4,8 @@ using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RepositoryLayer.Service
@@ -18,11 +20,12 @@ namespace RepositoryLayer.Service
             this.fundooContext = fundooContext;
             this.iconfiguration = iconfiguration;
         }
+        public static NotesEntity notesEntity = new NotesEntity();
         public NotesEntity CreateNotes(NotesModel notesModel,long userId)
         {
             try
             {
-                NotesEntity notesEntity = new NotesEntity();
+                
                 var result = fundooContext.NotesTable.Where(x => x.UserId == userId);
 
                 if (result != null)
@@ -56,6 +59,22 @@ namespace RepositoryLayer.Service
             }
         }
 
+        public IEnumerable<NotesEntity> RetrieveNotes(long userId)
+        {
+            try
+            {
+
+                var result=fundooContext.NotesTable.Where(x => x.UserId == userId);
+
+                return result;
+
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+        }
        
     }
 }
