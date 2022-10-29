@@ -2,6 +2,7 @@
 using CommonLayer.Model;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
+using RepositoryLayer.Service;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -33,6 +34,19 @@ namespace BusinessLayer.Service
             try
             {
                 return inotesRL.RetrieveNotes(userId,noteId);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+        }
+
+        public NotesEntity UpdateNote(long userId,long noteId, NotesModel notesModel)
+        {
+            try
+            {
+                return inotesRL.UpdateNote(userId,noteId,notesModel);
             }
             catch (Exception e)
             {

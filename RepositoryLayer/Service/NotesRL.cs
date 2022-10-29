@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace RepositoryLayer.Service
 {
@@ -75,6 +76,38 @@ namespace RepositoryLayer.Service
                 throw;
             }
         }
-       
+
+        public NotesEntity UpdateNote(long userId,long noteId, NotesModel notesModel)
+        {
+            try
+            {
+                var notesEntity = fundooContext.NotesTable.FirstOrDefault(e => e.NoteId == noteId);
+                if (notesEntity != null)
+                {
+                    notesEntity.Title = notesModel.Title;
+                    notesEntity.Description = notesModel.Description;
+                    notesEntity.Archieve = notesModel.Archieve;
+                    notesEntity.Backgroundcolor = notesModel.Backgroundcolor;
+                    notesEntity.Pin = notesModel.Pin;
+                    notesEntity.Reminder = notesModel.Reminder;
+                    notesEntity.Trash = notesModel.Trash;
+                    notesEntity.Created = notesModel.Created;
+                    notesEntity.Edited = notesModel.Edited;
+
+                    fundooContext.SaveChanges();
+                    return notesEntity;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
     }
 }

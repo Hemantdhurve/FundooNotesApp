@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System;
 using Microsoft.AspNetCore.Authorization;
+using RepositoryLayer.Context;
+using System.Threading.Tasks;
 
 namespace FundooApp.Controllers
 {
@@ -29,12 +31,12 @@ namespace FundooApp.Controllers
         {
             try
             {
-                long userId= Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
-                var result = inotesBL.CreateNotes(notesModel,userId);
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = inotesBL.CreateNotes(notesModel, userId);
 
                 if (result != null)
                 {
-                    
+
                     return Ok(new { success = true, message = "Notes Creation Successful ", data = result });
                 }
                 else
@@ -50,17 +52,17 @@ namespace FundooApp.Controllers
         }
         [Authorize]
         [HttpGet]
-        [Route("Retrieve/{noteId}")]
+        [Route("Retrieve")]
 
         public IActionResult RetrieveNotes(long noteId)
         {
             try
             {
                 long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
-                var result = inotesBL.RetrieveNotes(userId,noteId);
+                var result = inotesBL.RetrieveNotes(userId, noteId);
                 if (result != null)
                 {
-                    return Ok(new {success = true, message = "Retrieve data Successful ", data = result});
+                    return Ok(new { success = true, message = "Retrieve data Successful ", data = result });
                 }
                 else
                 {
@@ -70,6 +72,31 @@ namespace FundooApp.Controllers
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("Update")]
+        public IActionResult UpdateNote(long noteId, NotesModel notesModel)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = inotesBL.UpdateNote(userId,noteId,notesModel);
+
+                if (result != null)
+                {
+                    return Ok(new { success = true, message = "Retrieve data Successful ", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Retrieve data UnSuccessful" });
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
     }
