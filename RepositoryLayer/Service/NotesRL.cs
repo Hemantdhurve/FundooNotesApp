@@ -109,5 +109,24 @@ namespace RepositoryLayer.Service
             }
         }
 
+        public bool DeleteNote(long userId, long noteId)
+        {
+            try
+            {
+                var result = fundooContext.NotesTable.FirstOrDefault(x => x.NoteId == noteId);
+
+                fundooContext.NotesTable.Remove((NotesEntity)result);
+
+                fundooContext.SaveChanges();
+                return true;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }
