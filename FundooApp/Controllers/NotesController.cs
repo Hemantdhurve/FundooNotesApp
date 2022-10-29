@@ -87,11 +87,11 @@ namespace FundooApp.Controllers
 
                 if (result != null)
                 {
-                    return Ok(new { success = true, message = "Retrieve data Successful ", data = result });
+                    return Ok(new { success = true, message = "Update data Successful ", data = result });
                 }
                 else
                 {
-                    return BadRequest(new { success = false, message = "Retrieve data UnSuccessful" });
+                    return BadRequest(new { success = false, message = "Update data UnSuccessful" });
                 }
             }
             catch (Exception e)
