@@ -15,12 +15,16 @@ namespace RepositoryLayer.Service
         private readonly FundooContext fundooContext;
 
         private readonly IConfiguration iconfiguration;
+        private readonly long noteId;
+
         public NotesRL(FundooContext fundooContext, IConfiguration iconfiguration)
         {
             this.fundooContext = fundooContext;
             this.iconfiguration = iconfiguration;
         }
         public static NotesEntity notesEntity = new NotesEntity();
+        private readonly long userId;
+
         public NotesEntity CreateNotes(NotesModel notesModel,long userId)
         {
             try
@@ -59,19 +63,15 @@ namespace RepositoryLayer.Service
             }
         }
 
-        public IEnumerable<NotesEntity> RetrieveNotes(long userId)
+        public IEnumerable<NotesEntity> RetrieveNotes(long userId,long noteId)
         {
             try
             {
-
-                var result=fundooContext.NotesTable.Where(x => x.UserId == userId);
-
-                return result;
-
+                var result= fundooContext.NotesTable.Where(x => x.NoteId == noteId );
+                return result;         
             }
-            catch (Exception e)
+            catch (Exception e) 
             {
-
                 throw;
             }
         }

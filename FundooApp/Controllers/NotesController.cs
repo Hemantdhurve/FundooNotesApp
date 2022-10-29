@@ -14,6 +14,7 @@ namespace FundooApp.Controllers
     {
         private readonly INotesBL inotesBL;
         private readonly long userId;
+        private readonly long notesId;
 
         public NotesController(INotesBL inotesBL)
         {
@@ -49,18 +50,17 @@ namespace FundooApp.Controllers
         }
         [Authorize]
         [HttpGet]
-        [Route("Retrieve")]
+        [Route("Retrieve/{noteId}")]
 
-        public IActionResult RetrieveNotes()
+        public IActionResult RetrieveNotes(long noteId)
         {
             try
             {
                 long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
-                var result = inotesBL.RetrieveNotes(userId);
+                var result = inotesBL.RetrieveNotes(userId,noteId);
                 if (result != null)
                 {
-
-                    return Ok(new { success = true, message = "Retrieve data Successful ", data = result });
+                    return Ok(new {success = true, message = "Retrieve data Successful ", data = result});
                 }
                 else
                 {
@@ -69,7 +69,6 @@ namespace FundooApp.Controllers
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
