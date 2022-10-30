@@ -15,8 +15,8 @@ namespace FundooApp.Controllers
     public class NotesController : ControllerBase
     {
         private readonly INotesBL inotesBL;
-        private readonly long userId;
-        private readonly long notesId;
+        //private readonly long userId;
+        //private readonly long notesId;
 
         public NotesController(INotesBL inotesBL)
         {
@@ -128,6 +128,7 @@ namespace FundooApp.Controllers
         [Authorize]
         [HttpPut]
         [Route("Pin")]
+        //HttpPut method is used to update the notes when pinned.
         public IActionResult PinNote(long noteId)
         {
             try
@@ -148,6 +149,32 @@ namespace FundooApp.Controllers
             {
 
                 throw e;  
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("Archieve")]
+        public IActionResult ArchieveNote(long noteId)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = inotesBL.ArchieveNote(noteId);
+
+                if (result != null)
+                {
+                    return Ok(new { success = true, message = "Note Archieved Successfully " });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Note Archieve UnSuccessful" });
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw e;
             }
         }
     }

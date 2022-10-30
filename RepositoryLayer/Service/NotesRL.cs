@@ -127,6 +127,8 @@ namespace RepositoryLayer.Service
             }
         }
 
+
+
         public bool PinNote(long noteId)
         {
             try
@@ -152,6 +154,32 @@ namespace RepositoryLayer.Service
                 throw;
             }
         }
+
+        public bool ArchieveNote(long noteId)
+        {
+            try
+            {
+                var result = fundooContext.NotesTable.FirstOrDefault(x => x.NoteId == noteId);
+                
+                if (result.Archieve != true)
+                {
+                    result.Archieve = true;
+                }
+                else
+                {
+                    result.Archieve = false;
+                }
+
+                fundooContext.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
 
     }
 }
