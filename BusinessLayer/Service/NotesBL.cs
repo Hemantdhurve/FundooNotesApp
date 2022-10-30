@@ -92,5 +92,18 @@ namespace BusinessLayer.Service
                 throw e;
             }
         }
+
+        public bool TrashNote(long noteId)
+        {
+            try
+            {
+                return inotesRL.TrashNote(noteId);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
     }
 }

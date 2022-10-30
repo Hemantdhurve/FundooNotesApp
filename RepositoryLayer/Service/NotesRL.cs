@@ -180,6 +180,29 @@ namespace RepositoryLayer.Service
             }
         }
 
+        public bool TrashNote(long noteId)
+        {
+            try
+            {
+                var result = fundooContext.NotesTable.FirstOrDefault(x => x.NoteId == noteId);
 
+                if (result.Trash != true)
+                {
+                    result.Trash = true;
+                }
+                else
+                {
+                    result.Trash = false;
+                }
+
+                fundooContext.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
