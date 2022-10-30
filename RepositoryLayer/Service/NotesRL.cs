@@ -16,7 +16,7 @@ namespace RepositoryLayer.Service
         private readonly FundooContext fundooContext;
 
         private readonly IConfiguration iconfiguration;
-        private readonly long noteId;
+        //private readonly long noteId;
 
         public NotesRL(FundooContext fundooContext, IConfiguration iconfiguration)
         {
@@ -24,7 +24,7 @@ namespace RepositoryLayer.Service
             this.iconfiguration = iconfiguration;
         }
         public static NotesEntity notesEntity = new NotesEntity();
-        private readonly long userId;
+        //private readonly long userId;
 
         public NotesEntity CreateNotes(NotesModel notesModel,long userId)
         {
@@ -35,7 +35,6 @@ namespace RepositoryLayer.Service
 
                 if (result != null)
                 {
-
                     notesEntity.UserId=userId;
                     notesEntity.Title = notesModel.Title;
                     notesEntity.Description = notesModel.Description;
@@ -120,6 +119,32 @@ namespace RepositoryLayer.Service
                 fundooContext.SaveChanges();
                 return true;
 
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public bool PinNote(long noteId)
+        {
+            try
+            {
+                var result = fundooContext.NotesTable.FirstOrDefault(x => x.NoteId == noteId);
+                //Pin is bydefault true so check its working use if else condition
+
+                if (result.Pin == false)
+                {
+                    result.Pin = true;
+                }
+                else
+                {
+                    result.Pin = false;
+                }
+
+                fundooContext.SaveChanges();
+                return true;
             }
             catch (Exception)
             {

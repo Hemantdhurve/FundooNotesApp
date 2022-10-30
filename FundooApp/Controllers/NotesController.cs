@@ -112,7 +112,7 @@ namespace FundooApp.Controllers
 
                 if (result != null)
                 {
-                    return Ok(new { success = true, message = "Deletion Successful ", data = result });
+                    return Ok(new { success = true, message = "Deletion Successful", data = result });
                 }
                 else
                 {
@@ -125,5 +125,30 @@ namespace FundooApp.Controllers
             }
         }
 
+        [Authorize]
+        [HttpPut]
+        [Route("Pin")]
+        public IActionResult PinNote(long noteId)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = inotesBL.PinNote(noteId);
+
+                if (result != null)
+                {
+                    return Ok(new { success = true, message = "Note Pinned Successful "});
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Note Pinned UnSuccessful" });
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw e;  
+            }
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace BusinessLayer.Service
             }
             catch (Exception e)
             {
-                throw;
+                throw e;
             }
         }
         public IEnumerable<NotesEntity> RetrieveNotes(long userId, long noteId)
@@ -38,7 +38,7 @@ namespace BusinessLayer.Service
             catch (Exception e)
             {
 
-                throw;
+                throw e;
             }
         }
 
@@ -51,7 +51,7 @@ namespace BusinessLayer.Service
             catch (Exception e)
             {
 
-                throw;
+                throw e;
             }
         }
         
@@ -64,7 +64,19 @@ namespace BusinessLayer.Service
             catch (Exception e)
             {
 
-                throw;
+                throw e;
+            }
+        }
+        public bool PinNote(long noteId)
+        {
+            try
+            {
+                return inotesRL.PinNote(noteId);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
             }
         }
     }
