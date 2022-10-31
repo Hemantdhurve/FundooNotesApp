@@ -134,19 +134,22 @@ namespace RepositoryLayer.Service
             try
             {
                 var result = fundooContext.NotesTable.FirstOrDefault(x => x.NoteId == noteId);
-                //Pin is bydefault true so check its working use if else condition
+                //Pin is bydefault true so checking its working use if else condition
 
                 if (result.Pin == false)
                 {
                     result.Pin = true;
+                    fundooContext.SaveChanges();
+                    return true;
                 }
                 else
                 {
                     result.Pin = false;
+                    fundooContext.SaveChanges();
+                    return true;
                 }
 
-                fundooContext.SaveChanges();
-                return true;
+               
             }
             catch (Exception)
             {
@@ -164,14 +167,16 @@ namespace RepositoryLayer.Service
                 if (result.Archieve != true)
                 {
                     result.Archieve = true;
+                    fundooContext.SaveChanges();
+                    return true;
                 }
                 else
                 {
-                    result.Archieve = false;
+                    result.Archieve = false; 
+                    fundooContext.SaveChanges();
+                    return true;
                 }
-
-                fundooContext.SaveChanges();
-                return true;
+ 
             }
             catch (Exception)
             {
@@ -189,14 +194,17 @@ namespace RepositoryLayer.Service
                 if (result.Trash != true)
                 {
                     result.Trash = true;
+                    fundooContext.SaveChanges();
+                    return true;
                 }
                 else
                 {
                     result.Trash = false;
+                    fundooContext.SaveChanges();
+                    return true;
                 }
 
-                fundooContext.SaveChanges();
-                return true;
+                
             }
             catch (Exception)
             {
