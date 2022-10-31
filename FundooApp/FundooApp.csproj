@@ -18,5 +18,9 @@
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ImageFolder\" />
+  </ItemGroup>
+
 
 </Project>

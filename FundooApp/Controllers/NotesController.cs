@@ -7,6 +7,8 @@ using System;
 using Microsoft.AspNetCore.Authorization;
 using RepositoryLayer.Context;
 using System.Threading.Tasks;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace FundooApp.Controllers
 {
@@ -15,12 +17,17 @@ namespace FundooApp.Controllers
     public class NotesController : ControllerBase
     {
         private readonly INotesBL inotesBL;
-        //private readonly long userId;
-        //private readonly long notesId;
-
-        public NotesController(INotesBL inotesBL)
+        
+        private readonly FundooContext fundooContext;
+      
+        
+       
+        public NotesController(FundooContext fundooContext,INotesBL inotesBL)
         {
+            
+            this.fundooContext = fundooContext;
             this.inotesBL = inotesBL;
+
         }
 
         [Authorize]
@@ -195,6 +202,31 @@ namespace FundooApp.Controllers
                 else
                 {
                     return BadRequest(new { success = false, message = "Note not Moved to Bin" });
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+        [Authorize]
+        [HttpPut]
+        [Route("Image")]
+
+        public IActionResult ImageNotes(IFormFile Image,long noteId)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = inotesBL.ImageNotes(Image, noteId, userId);
+                if (result!=null)
+                {
+                    return Ok(new { success = true, message = "Image Added Successfully " });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Image Addition UnSuccessful" });
                 }
             }
             catch (Exception e)

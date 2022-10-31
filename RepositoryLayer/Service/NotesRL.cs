@@ -1,4 +1,6 @@
-﻿using CommonLayer.Model;
+﻿using CloudinaryDotNet;
+using CommonLayer.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
@@ -6,6 +8,7 @@ using RepositoryLayer.Interface;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,23 +19,20 @@ namespace RepositoryLayer.Service
         private readonly FundooContext fundooContext;
 
         private readonly IConfiguration iconfiguration;
-        //private readonly long noteId;
-
+       
         public NotesRL(FundooContext fundooContext, IConfiguration iconfiguration)
         {
             this.fundooContext = fundooContext;
             this.iconfiguration = iconfiguration;
         }
-        public static NotesEntity notesEntity = new NotesEntity();
-        //private readonly long userId;
-
+      
         public NotesEntity CreateNotes(NotesModel notesModel,long userId)
         {
             try
             {
                 
                 var result = fundooContext.NotesTable.Where(x => x.UserId == userId);
-
+                NotesEntity notesEntity = new NotesEntity();
                 if (result != null)
                 {
                     notesEntity.UserId=userId;
@@ -211,6 +211,47 @@ namespace RepositoryLayer.Service
 
                 throw;
             }
+        }
+
+        public string ImageNotes(IFormFile image,long noteId,long userId)
+        {
+            try
+            {
+                var result= fundooContext.NotesTable.FirstOrDefault(x => x.NoteId == noteId && x.UserId==userId);
+                if (result != null)
+                {
+                    Account account = new Account(
+                      this.iconfiguration["CloudinarySettings:CloudName"],
+                      this.iconfiguration["CloudinarySettings:ApiKey"],
+                      this.iconfiguration["CloudinarySettings:ApiSecret"]
+
+                        );
+                    Cloudinary cloudinary = new Cloudinary(account);
+                    var uploadParams = new CloudinaryDotNet.Actions.ImageUploadParams()
+                    {
+                        File = new FileDescription(image.FileName, image.OpenReadStream()),
+                    };
+                    var uploadResult = cloudinary.Upload(uploadParams);
+                    string imagePath = uploadResult.Url.ToString();
+                   
+                    result.Image = imagePath;
+                    fundooContext.SaveChanges();
+                    return "Image Uploaded Successfully";
+                    
+
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
     }
 }
