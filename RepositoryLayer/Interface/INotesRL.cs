@@ -13,11 +13,9 @@ namespace RepositoryLayer.Interface
         public IEnumerable<NotesEntity> RetrieveNotes(long userId, long noteId);
         public NotesEntity UpdateNote(long userId,long noteId, NotesModel notesModel);
         public bool DeleteNote(long userId, long noteId);
-        public bool PinNote(long noteId);
-        public bool ArchieveNote(long noteId);
-        public bool TrashNote(long noteId);
+        public bool PinNote(long noteId, long userId);
+        public bool ArchieveNote(long noteId, long userId);
+        public bool TrashNote(long noteId, long userId);
         public string ImageNotes(IFormFile image, long noteId, long userId);
-
-
-        }
+    }
 }

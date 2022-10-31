@@ -68,11 +68,11 @@ namespace BusinessLayer.Service
                 throw e;
             }
         }
-        public bool PinNote(long noteId)
+        public bool PinNote(long noteId,long userId)
         {
             try
             {
-                return inotesRL.PinNote(noteId);
+                return inotesRL.PinNote(noteId,userId);
             }
             catch (Exception e)
             {
@@ -81,11 +81,11 @@ namespace BusinessLayer.Service
             }
         }
 
-        public bool ArchieveNote(long noteId)
+        public bool ArchieveNote(long noteId, long userId)
         {
             try
             {
-                return inotesRL.ArchieveNote(noteId);
+                return inotesRL.ArchieveNote(noteId, userId);
             }
             catch (Exception e)
             {
@@ -94,11 +94,11 @@ namespace BusinessLayer.Service
             }
         }
 
-        public bool TrashNote(long noteId)
+        public bool TrashNote(long noteId, long userId)
         {
             try
             {
-                return inotesRL.TrashNote(noteId);
+                return inotesRL.TrashNote(noteId, userId);
             }
             catch (Exception e)
             {

@@ -129,7 +129,7 @@ namespace RepositoryLayer.Service
 
 
 
-        public bool PinNote(long noteId)
+        public bool PinNote(long noteId, long userId)
         {
             try
             {
@@ -158,7 +158,7 @@ namespace RepositoryLayer.Service
             }
         }
 
-        public bool ArchieveNote(long noteId)
+        public bool ArchieveNote(long noteId, long userId)
         {
             try
             {
@@ -185,7 +185,7 @@ namespace RepositoryLayer.Service
             }
         }
 
-        public bool TrashNote(long noteId)
+        public bool TrashNote(long noteId, long userId)
         {
             try
             {
