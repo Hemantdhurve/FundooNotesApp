@@ -253,5 +253,23 @@ namespace RepositoryLayer.Service
             }
             
         }
+        public string BackgroundColorNote(long noteId,string backgroundColor)
+        {
+            try
+            {
+                var result = fundooContext.NotesTable.FirstOrDefault(x => x.NoteId == noteId);
+
+                result.Backgroundcolor=backgroundColor;                                                     //followed stackoverflow link about color change
+                fundooContext.NotesTable.Update(result);
+
+                fundooContext.SaveChanges();
+                return "Color Changed Successfully";
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
     }
 }

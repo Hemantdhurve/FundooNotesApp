@@ -7,6 +7,7 @@ using RepositoryLayer.Service;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BusinessLayer.Service
 {
@@ -111,6 +112,19 @@ namespace BusinessLayer.Service
             try
             {
                 return inotesRL.ImageNotes(image,noteId,userId);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+
+        public string BackgroundColorNote(long noteId, string backgroundColor)
+        {
+            try
+            {
+                return inotesRL.BackgroundColorNote(noteId,backgroundColor);
             }
             catch (Exception e)
             {

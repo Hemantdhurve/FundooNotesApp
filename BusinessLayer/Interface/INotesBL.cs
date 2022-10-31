@@ -17,5 +17,6 @@ namespace BusinessLayer.Interface
         public bool ArchieveNote(long noteId, long userId);
         public bool TrashNote(long noteId, long userId);
         public string ImageNotes(IFormFile image, long noteId, long userId);
+        public string BackgroundColorNote(long noteId, string backgroundColor);
     }
 }
