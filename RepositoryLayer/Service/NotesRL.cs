@@ -146,7 +146,7 @@ namespace RepositoryLayer.Service
                 {
                     result.Pin = false;
                     fundooContext.SaveChanges();
-                    return true;
+                    return false;
                 }
 
                
@@ -174,7 +174,7 @@ namespace RepositoryLayer.Service
                 {
                     result.Archieve = false; 
                     fundooContext.SaveChanges();
-                    return true;
+                    return false;
                 }
  
             }
@@ -201,7 +201,7 @@ namespace RepositoryLayer.Service
                 {
                     result.Trash = false;
                     fundooContext.SaveChanges();
-                    return true;
+                    return false;
                 }
 
                 
