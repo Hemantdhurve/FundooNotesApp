@@ -2,6 +2,7 @@
 using CommonLayer.Model;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
+using RepositoryLayer.Service;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -41,7 +42,20 @@ namespace BusinessLayer.Service
                 throw;
             }
         }
+        public bool DeleteCollab(long collabId, long userId)
+        {
+            try
+            {
+                return icollabRL.DeleteCollab(collabId, userId);
+            }
+            catch (Exception)
+            {
 
-       
+                throw;
+            }
+
+        }
+
+
     }
 }
