@@ -59,7 +59,7 @@ namespace RepositoryLayer.Service
             }
             catch (Exception e)
             {
-                throw;
+                throw e;
             }
         }
 
@@ -72,7 +72,7 @@ namespace RepositoryLayer.Service
             }
             catch (Exception e) 
             {
-                throw;
+                throw e;
             }
         }
 

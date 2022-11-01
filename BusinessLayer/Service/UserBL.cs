@@ -25,7 +25,7 @@ namespace BusinessLayer.Service
             catch(Exception ex)
             {
                 
-                throw;
+                throw ex;
             }
         }
 
@@ -38,7 +38,7 @@ namespace BusinessLayer.Service
             }
             catch(Exception e)
             {
-                throw;
+                throw e;
             }
         }
         public string ForgetPassword(string email)
@@ -49,7 +49,7 @@ namespace BusinessLayer.Service
             }
             catch(Exception e)
             {
-                throw;
+                throw e;
             }
         }
 
@@ -61,7 +61,7 @@ namespace BusinessLayer.Service
             }
             catch (Exception e)
             {
-                throw;
+                throw e;
             }
         }
 
