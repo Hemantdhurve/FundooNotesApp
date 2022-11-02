@@ -54,13 +54,12 @@ namespace FundooApp.Controllers
         [HttpGet]
         [Route("Retrieve")]
 
-        public IActionResult RetrieveCollab(long notesId)
+        public IActionResult RetrieveCollab(long collabId)
         {
             try
             {
-                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
-               
-                var result = icollabBL.RetrieveCollab(notesId,userId);
+                
+                var result = icollabBL.RetrieveCollab(collabId);
 
                 if (result != null)
                 {
@@ -79,7 +78,7 @@ namespace FundooApp.Controllers
         }
 
         [Authorize]
-        [HttpGet]
+        [HttpDelete]
         [Route("Delete")]
 
         public IActionResult DeleteCollab(long collabId)

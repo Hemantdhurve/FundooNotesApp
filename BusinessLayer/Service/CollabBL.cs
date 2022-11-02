@@ -30,15 +30,14 @@ namespace BusinessLayer.Service
             }
         }
 
-        public IEnumerable<CollabEntity> RetrieveCollab(long notesId, long userId)
+        public IEnumerable<CollabEntity> RetrieveCollab(long collabId)
         {
             try
             {
-                return icollabRL.RetrieveCollab(notesId, userId);
+                return icollabRL.RetrieveCollab(collabId);
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

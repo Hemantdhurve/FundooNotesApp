@@ -53,11 +53,11 @@ namespace RepositoryLayer.Service
                 throw e;
             }
         }
-        public IEnumerable<CollabEntity> RetrieveCollab(long notesId,long userId)
+        public IEnumerable<CollabEntity> RetrieveCollab(long collabId)
         {
             try
             {
-                var result = fundooContext.CollabTable.Where(x => x.NoteId == notesId);
+                var result = fundooContext.CollabTable.Where(x => x.CollabId == collabId);
                 if (result != null)
                 {
                     return result;
