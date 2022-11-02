@@ -9,22 +9,22 @@ using System.Text;
 
 namespace RepositoryLayer.Service
 {
-    public class LabelRL:ILabelRL
+    public class LabelRL : ILabelRL
     {
         private readonly FundooContext fundooContext;
 
         public LabelRL(FundooContext fundooContext)
         {
             this.fundooContext = fundooContext;
-           
+
         }
 
-        public LabelEntity CreateLabel(long notesId,long userId, string labelName)
+        public LabelEntity CreateLabel(long notesId, long userId, string labelName)
         {
             try
             {
                 var notesResult = fundooContext.NotesTable.Where(x => x.NoteId == notesId).FirstOrDefault();
-               // var labelResult = fundooContext.LabelTable.Where(x => x.LabelName == labelName).FirstOrDefault();
+                // var labelResult = fundooContext.LabelTable.Where(x => x.LabelName == labelName).FirstOrDefault();
 
                 if (notesResult != null)
                 {
@@ -71,5 +71,24 @@ namespace RepositoryLayer.Service
             }
         }
 
+        public bool DeleteLabel(long labelId)
+        {
+            try
+            {
+                var result = fundooContext.LabelTable.FirstOrDefault(x => x.LabelId == labelId);
+
+                fundooContext.LabelTable.Remove(result);
+
+                fundooContext.SaveChanges();
+                return true;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
     }
 }
