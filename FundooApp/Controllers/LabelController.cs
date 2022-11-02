@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System;
+using RepositoryLayer.Entity;
 
 namespace FundooApp.Controllers
 {
@@ -47,14 +48,13 @@ namespace FundooApp.Controllers
             }
         }
         [Authorize]
-        [HttpPost]
+        [HttpGet]
         [Route("Retrieve")]
 
         public IActionResult RetrieveLabel(long labelId)
         {
             try
-            {
-
+            { 
                 var result = ilabelBL.RetrieveLabel(labelId);
 
                 if (result != null)
@@ -92,6 +92,32 @@ namespace FundooApp.Controllers
                 else
                 {
                     return BadRequest(new { success = false, message = "Label Deletion UnSuccessful" });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("Edit")]
+
+        public IActionResult EditLabel(long notesId, string labelName)
+        {
+            try
+            {
+                var result = ilabelBL.EditLabel(notesId,labelName);
+
+                if (result != null)
+                {
+
+                    return Ok(new { success = true, message = "Label Updated Successful ",data = result});
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Label updation UnSuccessful" });
                 }
             }
             catch (System.Exception)

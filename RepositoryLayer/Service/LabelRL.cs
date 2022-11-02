@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using CommonLayer.Model;
+using Microsoft.Extensions.Configuration;
 using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
@@ -88,7 +89,32 @@ namespace RepositoryLayer.Service
 
                 throw;
             }
+        }
 
+        public LabelEntity EditLabel(long noteId,string labelName)
+        {
+            try
+            {
+                var labelEntity = fundooContext.LabelTable.FirstOrDefault(e => e.NoteId == noteId);
+               
+                if (labelEntity != null)
+                {
+                    labelEntity.LabelName = labelName;
+                  
+                    fundooContext.SaveChanges();
+                    return labelEntity;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
+    
 }
