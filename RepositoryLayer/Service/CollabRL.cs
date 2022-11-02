@@ -57,7 +57,7 @@ namespace RepositoryLayer.Service
         {
             try
             {
-                var result = fundooContext.CollabTable.Where(x => x.CollabId == collabId);
+                var result = fundooContext.CollabTable.Where(x => x.CollabId == collabId);  //noteId used
                 if (result != null)
                 {
                     return result;

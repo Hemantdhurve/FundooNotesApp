@@ -46,7 +46,32 @@ namespace FundooApp.Controllers
                 throw;
             }
         }
+        [Authorize]
+        [HttpPost]
+        [Route("Retrieve")]
 
+        public IActionResult RetrieveLabel(long labelId)
+        {
+            try
+            {
+
+                var result = ilabelBL.RetrieveLabel(labelId);
+
+                if (result != null)
+                {
+
+                    return Ok(new { success = true, message = "Label Retrieve Successful ", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Label Retrieve UnSuccessful" });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
 
     }
 }
