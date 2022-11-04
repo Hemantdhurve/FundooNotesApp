@@ -15,7 +15,6 @@ namespace FundooApp.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserBL iuserBL;
-
         //Implementation of NLog 
         private readonly ILogger<UserController> logger;
         public UserController(IUserBL iuserBL, ILogger<UserController> logger)
