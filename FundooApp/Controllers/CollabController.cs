@@ -26,15 +26,16 @@ namespace FundooApp.Controllers
         private readonly FundooContext fundooContext;
         private readonly IMemoryCache memoryCache;
         private readonly IDistributedCache distributedCache;
-       
 
-        public CollabController(ICollabBL icollabBL, FundooContext fundooContext, IDistributedCache distributedCache, IMemoryCache memoryCache)
+        private readonly ILogger<NotesController> logger;
+
+        public CollabController(ICollabBL icollabBL, FundooContext fundooContext, IDistributedCache distributedCache, IMemoryCache memoryCache, ILogger<NotesController> logger)
         {
             this.icollabBL = icollabBL;
             this.fundooContext = fundooContext;
             this.memoryCache = memoryCache;
             this.distributedCache = distributedCache;
-            
+            this.logger = logger;
 
         }
 
