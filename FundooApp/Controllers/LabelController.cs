@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 
 namespace FundooApp.Controllers
 {
@@ -23,15 +24,17 @@ namespace FundooApp.Controllers
         private readonly FundooContext fundooContext;
         private readonly IMemoryCache memoryCache;
         private readonly IDistributedCache distributedCache;
+        private readonly ILogger<NotesController> logger;
 
 
 
-        public LabelController(ILabelBL ilabelBL, FundooContext fundooContext, IDistributedCache distributedCache, IMemoryCache memoryCache)
+        public LabelController(ILabelBL ilabelBL, FundooContext fundooContext, IDistributedCache distributedCache, IMemoryCache memoryCache, ILogger<NotesController> logger)
         {
             this.ilabelBL = ilabelBL;
             this.fundooContext = fundooContext;
             this.memoryCache = memoryCache;
             this.distributedCache = distributedCache;
+            this.logger=logger;
 
         }
 
