@@ -24,14 +24,17 @@ namespace FundooApp.Controllers
         private readonly FundooContext fundooContext;
         private readonly IMemoryCache memoryCache;
         private readonly IDistributedCache distributedCache;
-        
-        public LabelController(ILabelBL ilabelBL, FundooContext fundooContext, IDistributedCache distributedCache, IMemoryCache memoryCache)
+
+        private readonly ILogger<NotesController> logger;
+
+        public LabelController(ILabelBL ilabelBL, FundooContext fundooContext, IDistributedCache distributedCache, IMemoryCache memoryCache, ILogger<NotesController> logger)
         {
             this.ilabelBL = ilabelBL;
             this.fundooContext = fundooContext;
             this.memoryCache = memoryCache;
             this.distributedCache = distributedCache;
-           
+            this.logger = logger;
+
         }
 
         [Authorize]
