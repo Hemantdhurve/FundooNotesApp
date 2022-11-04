@@ -3,6 +3,8 @@ using CommonLayer.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Linq;
 using System.Security.Claims;
 
@@ -13,9 +15,12 @@ namespace FundooApp.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserBL iuserBL;
-        public UserController(IUserBL iuserBL)
+        //To create NLog file in folder
+        private readonly ILogger<UserController> logger;
+        public UserController(IUserBL iuserBL, ILogger<UserController> logger)
         {
             this.iuserBL = iuserBL;
+            this.logger = logger;
         }
         //API call Should Happen using HTTPPOST
         [HttpPost]
@@ -30,17 +35,20 @@ namespace FundooApp.Controllers
                 if (result != null)
                 {
                     //ok is HTTP respnse it has some format and is called 
+                   
                     return Ok(new {success=true,message="Registration is Successful",data=result});
                 }
                 else
                 {
+                   
                     return BadRequest(new { success = false, message = "Registration is UnSuccessful" });
+                
                 }
             
             }
-            catch(System.Exception)
+            catch(System.Exception e)
             {
-                throw;
+                throw e;
             }
         }
 
