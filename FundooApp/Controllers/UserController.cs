@@ -15,16 +15,18 @@ namespace FundooApp.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserBL iuserBL;
-        //To create NLog
+
+        //Implementation of NLog 
         private readonly ILogger<UserController> logger;
         public UserController(IUserBL iuserBL, ILogger<UserController> logger)
         {
             this.iuserBL = iuserBL;
             this.logger = logger;
         }
+
         //API call Should Happen using HTTPPOST
         [HttpPost]
-        [Route("Register")]          //
+        [Route("Register")]          
 
         public IActionResult RegisterUser(UserRegistrationModel userRegistrationModel)
         {
