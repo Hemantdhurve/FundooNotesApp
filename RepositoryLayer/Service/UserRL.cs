@@ -24,17 +24,58 @@ namespace RepositoryLayer.Service
             this.iconfiguration=iconfiguration;
         }
 
-        public static UserEntity userEntity = new UserEntity();
+        public static string Key = "hheemmaanntt123987";
+
+        public static string ConvertToEncrypt(string password)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(password))
+                {
+                    return "";
+                }
+                password += Key;
+
+                var passwordBytes = Encoding.UTF8.GetBytes(password);
+                return Convert.ToBase64String(passwordBytes);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+
+        public static string ConvertToDecrypt(string base64EncodedData)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(base64EncodedData))
+                {
+                    return "";
+                }
+                var base64EncodedBytes = Convert.FromBase64String(base64EncodedData);
+
+                var result = Encoding.UTF8.GetString(base64EncodedBytes);
+                result = result.Substring(0, result.Length - Key.Length);
+                return result;
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
         public UserEntity Registration(UserRegistrationModel userRegistrationModel)
         {
             //It should have try catch block to catch any exception occured while execution
             try
             {
-                //UserEntity userEntity = new UserEntity();
+                UserEntity userEntity = new UserEntity();
                 userEntity.FirstName = userRegistrationModel.FirstName;
                 userEntity.LastName = userRegistrationModel.LastName;
                 userEntity.Email = userRegistrationModel.Email;
-                userEntity.Password = userRegistrationModel.Password;
+                userEntity.Password = UserRL.ConvertToEncrypt(userRegistrationModel.Password);
 
                 fundooContext.Usertable.Add(userEntity);    //used to create dependencies
 
@@ -62,14 +103,16 @@ namespace RepositoryLayer.Service
             try
             {
                 //query to check only for email and password
-                var resultLog = fundooContext.Usertable.Where(x => x.Email == userLoginModel.Email && x.Password == userLoginModel.Password).FirstOrDefault(); ;
+                var resultLog = fundooContext.Usertable.Where(x => x.Email == userLoginModel.Email && x.Password==ConvertToEncrypt(userLoginModel.Password)).FirstOrDefault(); ;
+                var decryptPass = ConvertToDecrypt(resultLog.Password);
 
-                if (resultLog != null)                      
+                if (resultLog != null && decryptPass==userLoginModel.Password)                       
                 {
                     //taken userLoginModel to get the stored data used for login
+
                     //userLoginModel.Email = resultLog.Email;
-                    //userLoginModel.Password = resultLog.Password;
-                    var token = GenerateSecurityToken(resultLog.Email, resultLog.UserId);
+                    //userLoginModel.Password = (resultLog.Password);
+                    var token = GenerateSecurityToken(resultLog.Email,resultLog.UserId);
                     return token;
                 }
                 else

@@ -55,7 +55,7 @@ namespace FundooApp.Controllers
 
                 if (resultLog != null)
                 {
-                    return Ok(new { success = true, message = "Login Successful", data = resultLog });
+                    return Ok(new { success = true, message = "Login Successful", data =  resultLog });
                 }
                 else
                 {
