@@ -29,15 +29,17 @@ namespace FundooApp.Controllers
         private readonly FundooContext fundooContext;
         private readonly long noteId;
 
-      
-        public NotesController(FundooContext fundooContext, INotesBL inotesBL, IMemoryCache memoryCache, IDistributedCache distributedCache)
+        private readonly ILogger<NotesController> logger;
+
+        public NotesController(FundooContext fundooContext, INotesBL inotesBL, IMemoryCache memoryCache, IDistributedCache distributedCache, ILogger<NotesController> logger)
         {
 
             this.fundooContext = fundooContext;
             this.inotesBL = inotesBL;
             this.memoryCache = memoryCache;
             this.distributedCache = distributedCache;
-           
+            this.logger = logger;
+
         }
 
 
