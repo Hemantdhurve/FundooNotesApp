@@ -23,7 +23,7 @@ namespace FundooApp.Controllers
             this.logger = logger;
         }
 
-        //API call Should Happen using HTTPPOST
+        //API call Should Happen using HTTP Methods
         [HttpPost]
         [Route("Register")]          
 
@@ -36,12 +36,10 @@ namespace FundooApp.Controllers
                 if (result != null)
                 {
                     //ok is HTTP respnse it has some format and is called 
-                   
                     return Ok(new {success=true,message="Registration is Successful",data=result});
                 }
                 else
                 {
-                   
                     return BadRequest(new { success = false, message = "Registration is UnSuccessful" });
                 
                 }
