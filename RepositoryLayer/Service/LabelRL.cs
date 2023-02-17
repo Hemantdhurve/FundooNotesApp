@@ -20,11 +20,11 @@ namespace RepositoryLayer.Service
 
         }
 
-        public LabelEntity CreateLabel(long notesId, long userId, string labelName)
+        public LabelEntity CreateLabel(long noteId, long userId, string labelName)
         {
             try
             {
-                var notesResult = fundooContext.NotesTable.Where(x => x.NoteId == notesId).FirstOrDefault();
+                var notesResult = fundooContext.NotesTable.Where(x => x.NoteId == noteId).FirstOrDefault();
                 // var labelResult = fundooContext.LabelTable.Where(x => x.LabelName == labelName).FirstOrDefault();
 
                 if (notesResult != null)
@@ -69,6 +69,20 @@ namespace RepositoryLayer.Service
             {
 
                 throw;
+            }
+        }
+
+        public IEnumerable<LabelEntity> RetrieveAllLabel(long userId)
+        {
+            try
+            {
+                var result = fundooContext.LabelTable.Where(x => x.UserId == userId);
+                return result;
+
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
 

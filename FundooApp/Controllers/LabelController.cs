@@ -41,12 +41,12 @@ namespace FundooApp.Controllers
         [HttpPost]
         [Route("Create")]
 
-        public IActionResult CreateLabel(long notesId, string labelName)
+        public IActionResult CreateLabel(long noteId, string labelName)
         {
             try
             {
                 long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
-                var result = ilabelBL.CreateLabel(notesId,userId, labelName);
+                var result = ilabelBL.CreateLabel(noteId,userId, labelName);
 
                 if (result != null)
                 {
@@ -72,6 +72,33 @@ namespace FundooApp.Controllers
             try
             { 
                 var result = ilabelBL.RetrieveLabel(labelId);
+
+                if (result != null)
+                {
+
+                    return Ok(new { success = true, message = "Label Retrieve Successful ", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Label Retrieve UnSuccessful" });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("RetrieveAll")]
+
+        public IActionResult RetrieveAllLabel()
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
+                var result = ilabelBL.RetrieveAllLabel(userId);
 
                 if (result != null)
                 {
@@ -120,11 +147,11 @@ namespace FundooApp.Controllers
         [HttpPut]
         [Route("Edit")]
 
-        public IActionResult EditLabel(long notesId, string labelName)
+        public IActionResult EditLabel(long noteId, string labelName)
         {
             try
             {
-                var result = ilabelBL.EditLabel(notesId,labelName);
+                var result = ilabelBL.EditLabel(noteId, labelName);
 
                 if (result != null)
                 {

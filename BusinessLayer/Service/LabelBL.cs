@@ -16,11 +16,11 @@ namespace BusinessLayer.Service
             this.ilabelRL = ilabelRL;
         }
 
-        public LabelEntity CreateLabel(long notesId,long userId, string labelName)
+        public LabelEntity CreateLabel(long noteId,long userId, string labelName)
         {
             try
             {
-                return ilabelRL.CreateLabel(notesId,userId, labelName);
+                return ilabelRL.CreateLabel(noteId,userId, labelName);
             }
             catch (Exception)
             {
@@ -42,6 +42,19 @@ namespace BusinessLayer.Service
             }
         }
 
+
+        public IEnumerable<LabelEntity> RetrieveAllLabel(long userId)
+        {
+            try
+            {
+                return ilabelRL.RetrieveAllLabel(userId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         public bool DeleteLabel(long labelId)
         {
             try

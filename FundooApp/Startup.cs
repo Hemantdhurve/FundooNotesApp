@@ -131,6 +131,12 @@ namespace FundooApp
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            //CORS middleware is configured for React front End Fundoo App
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
             app.UseAuthentication();
 
             app.UseAuthorization();

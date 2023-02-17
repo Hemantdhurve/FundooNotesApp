@@ -28,8 +28,15 @@ namespace RepositoryLayer.Entity
         [ForeignKey("User")]
         public long UserId { get; set; }
         [JsonIgnore]
-        public virtual UserEntity User {get;set;}
+        public virtual UserEntity User { get; set; }
 
-
+        //public NotesEntity()
+        //{
+        //    this.Pin = true;
+        //    this.Trash = false;
+        //    this.Archieve = false;
+        //}
     }
+
+
 }
